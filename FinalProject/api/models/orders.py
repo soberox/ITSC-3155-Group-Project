@@ -14,4 +14,5 @@ class Order(Base):
     total_amount = Column(DECIMAL(10, 2), nullable=False)
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
     description = Column(String(300))
-    order_details = relationship("OrderDetail", back_populates="order")
+    customer_name = Column(String(100), ForeignKey("customer.customer_name"))
+    billing_address = Column(String(200), ForeignKey("customer.address"))   
