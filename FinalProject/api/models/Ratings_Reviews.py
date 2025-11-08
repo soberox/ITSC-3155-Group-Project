@@ -9,4 +9,4 @@ class RatingsReviews(Base):
     reviewText = Column(String(100), nullable=False, unique=False)
     ratingScore = Column(DECIMAL(1,1), nullable=False, unique=False)
 
-    customers = relationship("Customer", backref="reviews")
+    customers = relationship("Customer", back_populates="reviews")
