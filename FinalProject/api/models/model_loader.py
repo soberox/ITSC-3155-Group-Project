@@ -12,3 +12,4 @@ def index():
     customers.Base.metadata.create_all(engine)
     ratings_reviews.Base.metadata.create_all(engine)
     menu_items.Base.metadata.create_all(engine)
+    payment_information.Base.metadata.create_all(engine)
