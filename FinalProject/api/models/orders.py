@@ -17,3 +17,5 @@ class Order(Base):
     order_details = relationship("OrderDetail", back_populates="order")
 
     promotions = relationship("Promotions", back_populates="order")
+    customer_name = Column(String(100), ForeignKey("customer.customer_name"))
+    billing_address = Column(String(200), ForeignKey("customer.address"))   
