@@ -15,3 +15,5 @@ class Order(Base):
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
     description = Column(String(300))
     order_details = relationship("OrderDetail", back_populates="order")
+
+    promotions = relationship("Promotions", back_populates="order")
