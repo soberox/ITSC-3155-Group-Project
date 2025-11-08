@@ -4,7 +4,7 @@ from ..models import resources as model
 from ..schemas.resource import ResourceCreate, ResourceUpdate
 from sqlalchemy.exc import SQLAlchemyError
 
-def creat(db: Session, request: ResourceCreate):
+def create(db: Session, request: ResourceCreate):
     new_resource = model.Resource(
         item = request.Item,
         amount = request.amount,

@@ -4,7 +4,7 @@ from ..models import menu_item as model
 from ..schemas.menu_item import MenuItemCreation, MenuItemUpdate
 from sqlalchemy.exc import SQLAlchemyError
 
-from ..schemas.menu_items import MenuItemsUpdate
+from ..schemas.menu_items import MenuItemsUpdate, MenuItemsCreation
 
 
 def create(db: Session, request: MenuItemsCreation):
