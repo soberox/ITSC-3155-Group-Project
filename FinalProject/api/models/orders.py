@@ -3,7 +3,6 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from ..dependencies.database import Base
 
-
 class Order(Base):
     __tablename__ = "orders"
 
@@ -13,10 +12,10 @@ class Order(Base):
     total_amount = Column(DECIMAL(10, 2), nullable=False)
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
     description = Column(String(300))
-    order_details = relationship("OrderDetail", back_populates="order")
-
-    promotions = relationship("Promotions", back_populates="order")
-    #customer_name = Column(String(100), ForeignKey("Customers.customerName"))
     billing_address = Column(String(200))
-    customer = relationship("Customer", back_populates="orders")
-    customer_name = Column(String(200), nullable=False)
+
+    customer_id = Column(Integer, ForeignKey('Customers.id'), nullable=True)  # ✔️ Corrected table name
+    customer = relationship("Customers", back_populates="orders")  # ✔️ Matches class name
+
+    order_details = relationship("OrderDetail", back_populates="order")
+    promotions = relationship("Promotions", back_populates="order")

@@ -1,6 +1,5 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DECIMAL, DATETIME
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from ..dependencies.database import Base
 
 class Customers(Base):
@@ -13,5 +12,5 @@ class Customers(Base):
     customerAddress = Column(String(100), nullable=False)
 
     orders = relationship("Order", back_populates="customer")
-
-
+    reviews = relationship("RatingsReviews", back_populates="customer")  # updated here
+    payment_information = relationship("PaymentInformation", back_populates="customer")

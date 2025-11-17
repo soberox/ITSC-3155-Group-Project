@@ -3,13 +3,12 @@ from sqlalchemy.orm import declarative_base
 from datetime import datetime, timezone
 from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from ..dependencies.database import Base
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import declarative_base, relationship
 from datetime import datetime, timezone
 
-Base = declarative_base()
 
 class Promotions(Base):
     __tablename__ = "promotions"
