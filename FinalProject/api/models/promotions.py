@@ -1,15 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
-from sqlalchemy.orm import declarative_base
-from datetime import datetime, timezone
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
-
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
-from sqlalchemy.orm import declarative_base, relationship
 from datetime import datetime, timezone
-
-Base = declarative_base()
+from ..dependencies.database import Base
 
 class Promotions(Base):
     __tablename__ = "promotions"
@@ -22,8 +14,4 @@ class Promotions(Base):
     expiration_date = Column(DateTime(timezone=True), nullable=True)
     is_active = Column(Boolean, default=True)
 
-
     order = relationship("Order", back_populates="promotions")
-
-    def __repr__(self):
-        return f"<Promotion(id={self.id}, name={self.promotion_name}, active={self.is_active})>"

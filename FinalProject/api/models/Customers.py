@@ -1,10 +1,9 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DECIMAL, DATETIME
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from ..dependencies.database import Base
 
 class Customers(Base):
-    __tablename__ = "Customers"
+    __tablename__ = "customers"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     customerName = Column(String(100), nullable=False)
@@ -13,5 +12,5 @@ class Customers(Base):
     customerAddress = Column(String(100), nullable=False)
 
     orders = relationship("Order", back_populates="customer")
-
-
+    reviews = relationship("RatingsReviews", back_populates="customer")
+    payments = relationship("PaymentInformation", back_populates="customer")
