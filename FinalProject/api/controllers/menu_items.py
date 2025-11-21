@@ -36,7 +36,7 @@ def read_all(db: Session):
 
 def read_one(db: Session, item_id):
     try:
-        item = db.query(model.Order).filter(model.MenuItem.id == item_id).first()
+        item = db.query(model.MenuItem).filter(model.MenuItem.id == item_id).first()
         if not item:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
     except SQLAlchemyError as e:
