@@ -5,9 +5,10 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 def create(db: Session, request):
-    new_item = model.ratings_reviews(
+    new_item = model.RatingsReviews(
         reviewText=request.reviewText,
-        ratingScore=request.ratingScore
+        ratingScore=request.ratingScore,
+        customer_id=request.customer_id
     )
 
     try:
