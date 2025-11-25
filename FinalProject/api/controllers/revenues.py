@@ -3,9 +3,9 @@ from datetime import date
 from sqlalchemy import func, cast, Date
 from sqlalchemy.orm import Session
 
-from FinalProject.api.models.order_details import OrderDetail
-from FinalProject.api.models.orders import Order
-from FinalProject.api.models.sandwiches import Sandwich
+from ..models.order_details import OrderDetail
+from ..models.orders import Order
+from ..models.sandwiches import Sandwich
 
 
 def get_total_revenues(db: Session, target_date: date):
