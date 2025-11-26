@@ -1,25 +1,53 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
 from ..models import orders as model
+from ..models.customers import Customers
+from ..models.sandwiches import Sandwich as Items
 from sqlalchemy.exc import SQLAlchemyError
+from uuid import uuid4
 
 
 def create(db: Session, request):
-    new_item = model.Order(
-        customer_name=request.customer_name,
-        description=request.description
+    customer = db.query(Customers).filter(
+        Customers.customerName == request.customer_name
+    ).first()
+
+    if not customer:
+        raise HTTPException(
+            status_code=404,
+            detail="Customer not found"
+        )
+
+    item = db.query(Items).filter(
+        Items.sandwich_name == request.description
+    ).first()
+
+    if not item:
+        raise HTTPException(
+            status_code=404,
+            detail="Item not found"
+        )
+
+    tracking_number = f"TRK-{uuid4().hex[:10].upper()}"
+
+    description = request.description
+    billing_address = customer.customerAddress
+    total_amount = float(item.price)
+
+    new_order = model.Order(
+        tracking_number=tracking_number,
+        order_status="Pending",
+        total_amount=total_amount,
+        description=description,
+        billing_address=billing_address,
+        customer_id=customer.id
     )
 
-    try:
-        db.add(new_item)
-        db.commit()
-        db.refresh(new_item)
-    except SQLAlchemyError as e:
-        error = str(e.__dict__['orig'])
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
+    db.add(new_order)
+    db.commit()
+    db.refresh(new_order)
 
-    return new_item
-
+    return new_order
 
 def read_all(db: Session):
     try:

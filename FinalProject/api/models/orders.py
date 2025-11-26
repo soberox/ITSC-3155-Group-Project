@@ -3,9 +3,9 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from ..dependencies.database import Base
 
+
 class Order(Base):
     __tablename__ = "orders"
-
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     tracking_number = Column(String(30), unique=True, nullable=False)
     order_status = Column(String(100), nullable=False)
@@ -19,3 +19,4 @@ class Order(Base):
 
     order_details = relationship("OrderDetail", back_populates="order")
     promotions = relationship("Promotions", back_populates="order")
+
