@@ -10,17 +10,17 @@ class RecipeBase(BaseModel):
 
 
 class RecipeCreate(RecipeBase):
-    menu_items_id: int
+    menu_item_id: int
     resource_id: int
 
 class RecipeUpdate(BaseModel):
-    menu_items_id: Optional[int] = None
+    menu_item_id: Optional[int] = None
     resource_id: Optional[int] = None
     amount: Optional[int] = None
 
 class Recipe(RecipeBase):
     id: int
-    menu_items: "MenuItem" = None
+    menu_item: "MenuItem" = None
     resource: Resource = None
 
     class ConfigDict:
