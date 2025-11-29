@@ -45,6 +45,6 @@ def get_reviews_by_menu_id(menu_item_id: int, db: Session = Depends(get_db)):
     reviews = controller.get_reviews_by_menu_item_id(db, menu_item_id)
 
     if not reviews:
-        raise HTTPException(status_code=404, detail = "No reviews found")
+        raise HTTPException(status_code=404, detail = "This item has no reviews")
 
     return controller.get_reviews_by_menu_item_id(db, menu_item_id)
