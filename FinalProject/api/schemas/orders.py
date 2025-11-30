@@ -6,18 +6,28 @@ from .order_details import OrderDetail
 
 
 class OrderBase(BaseModel):
-    tracking_number: int
+    tracking_number: str
     order_status: str
     total_amount: float
     order_date: datetime
     description: Optional[str] = None
     billing_address: Optional[str] = None
     customer_id: int
+    type: str = "pickup"
+    special: Optional[str] = None
 
 
 
-class OrderCreate(OrderBase):
+class OrderCreate(BaseModel):
     customer_id: int
+<<<<<<< Updated upstream
+=======
+    menu_item_id: int
+    amount: int = 1
+    description: Optional[str] = None
+    type: str = "pickup"
+    special: Optional[str] = None
+>>>>>>> Stashed changes
 
 
 class OrderUpdate(BaseModel):

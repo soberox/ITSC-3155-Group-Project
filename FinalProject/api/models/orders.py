@@ -7,12 +7,28 @@ from ..dependencies.database import Base
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+<<<<<<< Updated upstream
     tracking_number = Column(String(30), unique=True, nullable=False)
     order_status = Column(String(100), nullable=False)
+=======
+    # tracking number for order (store as string to allow prefixed values)
+    tracking_number = Column(String(50), unique=True, nullable=False)
+    # Status: e.g., "Pending", "Preparing", "Completed"
+    order_status = Column(String(100), nullable=False, default="pending")
+    # Total price of the order
+>>>>>>> Stashed changes
     total_amount = Column(DECIMAL(10, 2), nullable=False)
     order_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     description = Column(String(300))
     billing_address = Column(String(200))
+<<<<<<< Updated upstream
+=======
+    type = Column(String(50), default="pickup")
+    special = Column(String(200))
+    # Relationship to Customer (if Customer table exists)
+    customer_id = Column(Integer, ForeignKey("customers.id"), nullable=False)
+    menu_item_id = Column(Integer, ForeignKey("menu_items.id"), nullable=True)
+>>>>>>> Stashed changes
 
     customer_id = Column(Integer, ForeignKey("customers.id"), nullable=False)
     customer = relationship("Customers", back_populates="orders")
