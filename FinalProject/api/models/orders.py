@@ -20,7 +20,7 @@ class Order(Base):
     special = Column(String(200))
     # Relationship to Customer (if Customer table exists)
     customer_id = Column(Integer, ForeignKey("customers.id"), nullable=False)
-
+    menu_item_id = Column(Integer, ForeignKey("menu_items.id"), nullable=False)
     # Use string reference here to avoid circular import
     customer = relationship("Customers", back_populates="orders")
 

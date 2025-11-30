@@ -13,6 +13,7 @@ class OrderBase(BaseModel):
     description: Optional[str] = None
     billing_address: Optional[str] = None
     customer_id: int
+    menu_item_id: int
     type: str = "pickup"
     special: Optional[str] = None
 

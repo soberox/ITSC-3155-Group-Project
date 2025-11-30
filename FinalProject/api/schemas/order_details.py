@@ -13,7 +13,8 @@ class OrderDetailBase(BaseModel):
     order_type: str
     tracking_number: str
     billing_address: str
-    amount: int
+    # DB uses DECIMAL(10,2) for amount — accept float in the schema
+    amount: float
 
 
 class OrderDetailCreate(OrderDetailBase):
@@ -24,7 +25,7 @@ class OrderDetailUpdate(BaseModel):
     order_id: Optional[int] = None
     menu_item_id: Optional[int] = None
     customer_id: Optional[int] = None
-    amount: Optional[int] = None
+    amount: Optional[float] = None
 
 class StatusUpdate(BaseModel):
     id: int
