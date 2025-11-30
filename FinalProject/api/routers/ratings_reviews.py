@@ -1,7 +1,10 @@
-from fastapi import APIRouter, Depends, FastAPI, status, Response
+from typing import List
+
+from fastapi import APIRouter, Depends, FastAPI, status, Response, HTTPException
 from sqlalchemy.engine import row
 from sqlalchemy.orm import Session
 from ..controllers import ratings_reviews as controller
+from ..controllers import menu_items as menu_item_controller
 from ..schemas import ratings_reviews as schema
 from ..dependencies.database import engine, get_db
 
@@ -29,3 +32,19 @@ def get_bad_reviews(db: Session = Depends(get_db)):
         }
         for row in complaints
     ]
+
+@router.get("/reviews/{menu_item_id}", response_model=List[schema.RatingReview])
+def get_reviews_by_menu_id(menu_item_id: int, db: Session = Depends(get_db)):
+    try:
+        menu_item_controller.read_one(db, item_id=menu_item_id)
+    except HTTPException as e:
+        if e.status_code == 404:
+            raise HTTPException(status_code=404, detail=f"Item with {menu_item_id} does not exist")
+        raise e
+
+    reviews = controller.get_reviews_by_menu_item_id(db, menu_item_id)
+
+    if not reviews:
+        raise HTTPException(status_code=404, detail = "This item has no reviews")
+
+    return controller.get_reviews_by_menu_item_id(db, menu_item_id)
