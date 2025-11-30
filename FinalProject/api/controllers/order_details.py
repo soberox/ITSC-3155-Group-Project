@@ -43,10 +43,6 @@ def create(db: Session, request):
 
     new_item = model.OrderDetail(
         order_id=request.order_id,
-<<<<<<< Updated upstream
-        menu_item_id=request.sandwich_id,
-        amount=request.amount
-=======
         menu_item_id=request.menu_item_id,
         customer_id=order.customer_id,
         customer_name=customer.customerName,
@@ -56,7 +52,6 @@ def create(db: Session, request):
         billing_address=order.billing_address,
         tracking_number=order.tracking_number,
         amount=order.total_amount
->>>>>>> Stashed changes
     )
 
     try:

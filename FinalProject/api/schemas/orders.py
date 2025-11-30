@@ -20,14 +20,11 @@ class OrderBase(BaseModel):
 
 class OrderCreate(BaseModel):
     customer_id: int
-<<<<<<< Updated upstream
-=======
     menu_item_id: int
     amount: int = 1
     description: Optional[str] = None
     type: str = "pickup"
     special: Optional[str] = None
->>>>>>> Stashed changes
 
 
 class OrderUpdate(BaseModel):
