@@ -17,14 +17,16 @@ class OrderDetailBase(BaseModel):
     amount: float
 
 
-class OrderDetailCreate(OrderDetailBase):
+class OrderDetailCreate(BaseModel):
     order_id: int
     menu_item_id: int
 
 class OrderDetailUpdate(BaseModel):
-    order_id: Optional[int] = None
-    menu_item_id: Optional[int] = None
-    customer_id: Optional[int] = None
+    customer_name: Optional[str] = None
+    item_name: Optional[str] = None
+    order_status: Optional[str] = None
+    order_type: Optional[str] = None
+    billing_address: Optional[str] = None
     amount: Optional[float] = None
 
 class StatusUpdate(BaseModel):

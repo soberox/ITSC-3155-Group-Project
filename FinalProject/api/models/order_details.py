@@ -6,9 +6,7 @@ class OrderDetail(Base):
     __tablename__ = "order_details"
 
     id = Column(Integer, primary_key=True, index=True)
-    
     order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
-
     menu_item_id = Column(Integer, ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=True)
     tracking_number = Column(String(150), nullable=False)
     customer_name = Column(String(150), nullable=False)

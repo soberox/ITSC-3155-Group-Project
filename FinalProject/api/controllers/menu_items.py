@@ -51,7 +51,10 @@ def update(db: Session, item_id: int, request: MenuItemsUpdate):
         db_item = item.first()
         if not db_item:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
-        update_data = request.dict(exclude_unset=True)
+        # Use model_dump (Pydantic v2) with exclude_unset and exclude_none to only update provided fields
+        update_data = request.model_dump(exclude_unset=True, exclude_none=True)
+        if not update_data:
+            return db_item
         item.update(update_data, synchronize_session=False)
         db.commit()
         db.refresh(db_item)

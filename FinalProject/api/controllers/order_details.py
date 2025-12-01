@@ -44,7 +44,6 @@ def create(db: Session, request):
     new_item = model.OrderDetail(
         order_id=request.order_id,
         menu_item_id=request.menu_item_id,
-        customer_id=order.customer_id,
         customer_name=customer.customerName,
         item_name=item.name,
         order_status=order.order_status,
@@ -101,11 +100,13 @@ def update(db: Session, item_id, request):
         item = db.query(model.OrderDetail).filter(model.OrderDetail.id == item_id)
         if not item.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
-        update_data = request.dict(exclude_unset=True)
+        update_data = request.model_dump(exclude_unset=True, exclude_none=True)
+        if not update_data:
+            return item.first()
         item.update(update_data, synchronize_session=False)
         db.commit()
     except SQLAlchemyError as e:
-        error = str(e.__dict__['orig'])
+        error = str(e.__dict__.get('orig', str(e)))
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return item.first()
 
