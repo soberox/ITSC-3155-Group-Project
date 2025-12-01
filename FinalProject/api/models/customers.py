@@ -15,3 +15,11 @@ class Customers(Base):
     reviews = relationship("RatingsReviews", back_populates="customer")
     payments = relationship("PaymentInformation", back_populates="customer")
 
+    # Cascade deletes from Order -> OrderDetail and enable passive deletes to respect DB ON DELETE CASCADE
+    # ✔ Delete customer → delete related orders, reviews, and payments
+    payments = relationship(
+        "PaymentInformation",
+        back_populates="customer",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
