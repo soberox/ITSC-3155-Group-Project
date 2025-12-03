@@ -9,7 +9,8 @@ class Resource(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     item = Column(String(100), unique=True, nullable=False)
-    amount = Column(Integer, index=True, nullable=False, server_default='0.0')
+    amount = Column(Integer, index=True, nullable=False, server_default='0')
     unit = Column(String(20), nullable=False, default='unit')
 
-    recipes = relationship("Recipe", back_populates="resource")
+    # Cascade deletes from Resource -> Recipe at ORM level and let DB cascade too
+    recipes = relationship("Recipe", back_populates="resource", cascade="all, delete-orphan", passive_deletes=True)

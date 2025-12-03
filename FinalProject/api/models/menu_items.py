@@ -14,6 +14,7 @@ class MenuItem(Base):
     calories = Column(Integer)
     category = Column(String(50), nullable=False)
 
-    recipes = relationship("Recipe", back_populates="menu_item")
+    # Cascade deletes from MenuItem -> Recipe at the ORM level and let DB cascade too
+    recipes = relationship("Recipe", back_populates="menu_item", cascade="all, delete-orphan", passive_deletes=True)
     reviews = relationship("RatingsReviews", back_populates="menu_item")
     order_details = relationship("OrderDetail", back_populates="menu_item")
